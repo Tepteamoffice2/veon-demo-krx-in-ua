@@ -2,11 +2,13 @@
 import FutureLink from "./FutureLink.astro";
 import Icon from "./Icon.astro";
 import { contacts, nav, futureNote } from "../data/site";
+const BASE_RAW = import.meta.env.BASE_URL;
+const base = BASE_RAW.endsWith("/") ? BASE_RAW : BASE_RAW + "/";
 ---
 <header class="site-header" data-header>
   <div class="container site-header__bar">
     <a class="site-header__logo" href="#top" aria-label="KRX, на початок сторінки">
-      <img src="/brand/krx-logo.svg" alt="KRX" width="66" height="36" data-rec="SP-R002,SEO-R008" />
+      <img src={`${base}brand/krx-logo.svg`} alt="KRX" width="66" height="36" data-rec="SP-R002,SEO-R008" />
     </a>
 
     <nav class="site-header__nav" aria-label="Розділи сторінки">
@@ -43,7 +45,7 @@ import { contacts, nav, futureNote } from "../data/site";
     <div class="container menu__inner">
       <div class="menu__top">
         <a class="site-header__logo" href="#top" aria-label="KRX, на початок сторінки" data-menu-link>
-          <img src="/brand/krx-logo.svg" alt="KRX" width="66" height="36" />
+          <img src={`${base}brand/krx-logo.svg`} alt="KRX" width="66" height="36" />
         </a>
         <button class="site-header__mbtn" type="button" data-menu-close><Icon name="close" size={18} /><span>Закрити</span></button>
       </div>

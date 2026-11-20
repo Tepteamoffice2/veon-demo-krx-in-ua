@@ -10,6 +10,8 @@ import Kontakty from "../components/Kontakty.astro";
 import Footer from "../components/Footer.astro";
 import { contacts } from "../data/site";
 import "../styles/site.css";
+const BASE_RAW = import.meta.env.BASE_URL;
+const base = BASE_RAW.endsWith("/") ? BASE_RAW : BASE_RAW + "/";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -36,8 +38,8 @@ const jsonLd = {
   description="Ремкомплекти й троси склопідіймачів, люків і дверей для іномарок. Ремонт склопідіймачів у Києві, відправка по Україні в день замовлення."
 >
   <Fragment slot="head">
-    <link rel="preload" href="/fonts/geologica-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/brand/krx-logo.svg" type="image/svg+xml" />
+    <link rel="preload" href={`${base}fonts/geologica-cyrillic-700-normal.woff2`} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href={`${base}brand/krx-logo.svg`} type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
   <Header slot="header" />
