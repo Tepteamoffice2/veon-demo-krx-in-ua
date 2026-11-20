@@ -1,0 +1,51 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import DoorDrawing from "./DoorDrawing.astro";
+import { futureNote } from "../data/site";
+
+const views = [
+  {
+    id: "reg", mark: "Вид А", title: "Ремкомплекти склопідіймачів",
+    line: "Ролики, направляючі каретки, кутові котушки, шестерні й фіксатори скла окремими деталями.",
+    brands: "Audi, BMW, Chevrolet, Citroen, DAF, Fiat, Ford, Hyundai / KIA, Land Rover, Mercedes, Nissan, Opel, Peugeot, Renault, Seat, Skoda, Smart, Volkswagen",
+    viewBox: "196 168 300 252", ar: "300 / 252",
+  },
+  {
+    id: "cable", mark: "Вид Б", title: "Троси склопідіймачів",
+    line: "Скло зупиняється на півдорозі або падає в двері: першим перевіряють трос.",
+    viewBox: "236 196 220 216", ar: "220 / 216",
+  },
+  {
+    id: "door", mark: "Вид В", title: "Троси відкривання дверей",
+    line: "Ручка ходить, а двері не відчиняються: трос між ручкою і замком.",
+    viewBox: "96 226 466 96", ar: "466 / 96",
+  },
+  {
+    id: "roof", mark: "Вид Г", title: "Ремкомплекти люків",
+    line: "Люк не відкривається або йде з перекосом: троси й направляючі механізму в даху.",
+    viewBox: "604 88 186 166", ar: "186 / 166",
+  },
+];
+---
+<Section id="vuzly" class="vuzly section">
+  <div class="container">
+    <h2 class="section__title vuzly__title">Вузли, на яких ми спеціалізуємось</h2>
+    <div class="vuzly__grid">
+      {views.map((v, i) => (
+        <article class:list={["view", `view--${v.id}`]} data-reveal style={`--reveal-delay:${i * 40}ms`}>
+          <figure class="view__figure" style={`--ar:${v.ar}`}>
+            <DoorDrawing viewBox={v.viewBox} focus={v.id} label={`${v.title}: ${v.mark.toLowerCase()} на схемі дверей`} class="view__svg" />
+            <figcaption class="view__mark">{v.mark}</figcaption>
+          </figure>
+          <div class="view__text">
+            <h3 class="view__title">{v.title}</h3>
+            <p class="view__line">{v.line}</p>
+            {v.brands && <p class="view__brands">{v.brands}</p>}
+            <FutureLink note={futureNote} class="view__link">До розділу</FutureLink>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Section>

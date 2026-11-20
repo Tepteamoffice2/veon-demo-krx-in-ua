@@ -1,0 +1,61 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { contacts } from "../data/site";
+
+const terms = [
+  {
+    id: "vidpravka", title: "Відправка", figure: "до 17:00",
+    lines: [
+      "Замовлення до 17:00 відправляємо того ж дня, відправка 3 рази на день.",
+      "Нова пошта, Укрпошта або безкоштовний самовивіз з Харківського шосе, 57А.",
+      "Наявність на власному складі.",
+    ],
+  },
+  {
+    id: "oplata", title: "Оплата", figure: "Картка, Google Pay, Apple Pay",
+    lines: [
+      "Visa і Mastercard онлайн, накладений платіж, готівка при самовивозі, переказ на рахунок.",
+      "Безготівковий розрахунок для юридичних осіб.",
+    ],
+  },
+  {
+    id: "garantiya", title: "Гарантія та повернення", figure: "60 днів",
+    lines: [
+      "Повернення або обмін протягом 60 днів з моменту отримання.",
+      "Безкоштовний обмін навіть встановленої деталі й деталі з пошкодженим пакуванням.",
+      "Гарантія до 6 місяців на більшість товарів.",
+    ],
+  },
+];
+---
+<Section id="umovy" rec="UX-R005" class="umovy section">
+  <div class="container">
+    <h2 class="section__title">Доставка, оплата, гарантія</h2>
+    <div class="terms" data-terms>
+      {terms.map((t) => (
+        <div class={`term term--${t.id}`} data-term>
+          <div class="term__head">
+            <h3 class="term__title">
+              <span class="term__plain">{t.title}</span>
+              <button class="term__toggle" type="button" aria-expanded="true" aria-controls={`term-${t.id}`}>
+                {t.title}<Icon name="chevron" size={22} class="term__chev" />
+              </button>
+            </h3>
+            <p class="term__figure">{t.figure}</p>
+          </div>
+          <div class="term__body" id={`term-${t.id}`}>
+            {t.lines.map((l) => <p>{l}</p>)}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="umovy__ask">
+      <p>Питання щодо замовлення чи повернення: {contacts.phoneText} або {contacts.email}.</p>
+      <div class="btn-pair">
+        <a class="btn btn--ghost" href={contacts.phoneHref}><Icon name="phone" size={18} />Подзвонити</a>
+        <a class="btn btn--ghost" href={`mailto:${contacts.email}`}><Icon name="mail" size={18} />Написати на e-mail</a>
+      </div>
+    </div>
+  </div>
+</Section>

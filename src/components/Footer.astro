@@ -1,0 +1,26 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { contacts, socials, futureNote } from "../data/site";
+const pages = ["Про компанію", "Оплата", "Доставка", "Гарантія та повернення", "Договір оферти", "Політика конфіденційності"];
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <a class="site-footer__logo" href="#top" aria-label="KRX, на початок сторінки">
+      <img src="/brand/krx-logo.svg" alt="KRX" width="58" height="32" />
+    </a>
+    <ul class="site-footer__pages">
+      {pages.map((p) => <li><FutureLink note={futureNote}>{p}</FutureLink></li>)}
+    </ul>
+    <ul class="site-footer__social" aria-label="KRX у соцмережах">
+      {socials.map((s) => <li><a href={s.href} rel="noopener" target="_blank">{s.name}<span class="visually-hidden"> (нова вкладка)</span></a></li>)}
+    </ul>
+    <p class="site-footer__copy">© KRX</p>
+  </div>
+</footer>
+
+<nav class="callbar" aria-label="Зв’язок з KRX" data-callbar data-rec="UX-R003">
+  <a class="callbar__btn callbar__btn--main" href={contacts.phoneHref}><Icon name="phone" size={18} />Подзвонити</a>
+  <a class="callbar__btn" href={contacts.viber}><Icon name="viber" size={18} />Viber</a>
+  <a class="callbar__btn" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} />Telegram</a>
+</nav>

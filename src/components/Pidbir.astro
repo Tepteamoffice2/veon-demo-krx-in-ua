@@ -1,0 +1,98 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import DoorDrawing from "./DoorDrawing.astro";
+import { contacts, brands, nodes, extraNodes, futureNote } from "../data/site";
+---
+<Section id="pidbir" rec="UX-R001,SP-R001,SEO-R009" class="hero">
+  <header class="hero__glass">
+    <div class="container hero__intro">
+      <h1 class="hero__title" data-rec="SP-R007,SEO-R006">Ремкомплекти й троси <br class="br-wide" />склопідіймачів для іномарок</h1>
+      <p class="hero__lead">Підберемо деталь під вашу марку, встановимо в Києві, відправимо в день замовлення до&nbsp;17:00.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={contacts.phoneHref}><Icon name="phone" size={18} />Подзвонити {contacts.phoneText}</a>
+        <div class="btn-pair">
+          <a class="btn btn--ghost" href={contacts.viber}><Icon name="viber" size={18} />Viber</a>
+          <a class="btn btn--ghost" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} />Telegram</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero__field">
+    <div class="container picker" data-picker data-rec="SP-R006">
+      <h2 class="picker__title" id="picker-title">Що зламалося у вашій машині?</h2>
+
+      <div class="picker__brand field-row">
+        <label for="brand">Марка</label>
+        <div class="select">
+          <select id="brand" name="brand" data-brand autocomplete="off">
+            <option value="">Оберіть марку</option>
+            {brands.map((b) => <option value={b}>{b}</option>)}
+            <option value="Інша марка">Інша марка</option>
+          </select>
+          <Icon name="chevron" size={18} class="select__icon" />
+        </div>
+      </div>
+
+      <div class="picker__scheme">
+        <div class="scheme" data-scheme>
+          <div class="scheme__crop">
+            <DoorDrawing leaders label="Схема вузлів дверей: склопідіймач, трос, замок, ручка, кліпси обшивки; окремо — механізм люка" class="scheme__svg" rec="SP-R002" />
+          </div>
+          <div class="chips chips--scheme" role="group" aria-labelledby="picker-title">
+            {nodes.map((n) => (
+              <button type="button" class:list={["chip", `chip--${n.pos}`]} aria-pressed="false" data-chip={n.id} data-phrase={n.phrase}>
+                <Icon name="check" size={16} class="chip__tick" />{n.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="picker__extra">
+        <div class="chips chips--extra" role="group" aria-label="Деталь не в дверях">
+          {extraNodes.map((n) => (
+            <button type="button" class="chip" aria-pressed="false" data-chip={n.id} data-phrase={n.phrase}>
+              <Icon name="check" size={16} class="chip__tick" />{n.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="picker__model field-row">
+        <label for="model">Модель і рік <span class="field-row__opt">(необов’язково)</span></label>
+        <input id="model" name="model" type="text" inputmode="text" autocomplete="off" placeholder="Наприклад, Octavia A5, 2012" data-model />
+      </div>
+
+      <div class="picker__result">
+        <p class="request" aria-live="polite">
+          <span class="request__label">Ваш запит:</span>
+          <span class="request__text" data-request>оберіть марку й що зламалося</span>
+        </p>
+        <p class="request__hint" data-hint>Можна подзвонити й без вибору: менеджер підбере деталь за моделлю й роком.</p>
+      </div>
+
+      <div class="picker__send">
+        <div class="send">
+          <a class="btn btn--ghost-field" href={contacts.viber} data-send="viber"><Icon name="viber" size={18} />Надіслати у Viber</a>
+          <a class="btn btn--ghost-field" href={contacts.telegram} rel="noopener" data-send="telegram"><Icon name="telegram" size={18} />Надіслати в Telegram</a>
+          <a class="btn btn--text-field" href={`mailto:${contacts.email}?subject=${encodeURIComponent("Підбір деталі")}`} data-send="mail"><Icon name="mail" size={18} />Надіслати на e-mail</a>
+          <button class="btn btn--text-field" type="button" data-copy><Icon name="copy" size={18} /><span data-copy-label>Скопіювати запит</span></button>
+        </div>
+        <p class="send__note" data-copy-status role="status">Viber і Telegram відкриють чат KRX; текст запиту ми копіюємо, його лишиться вставити.</p>
+        <p class="send__more">
+          <a class="link-field" href={contacts.phoneHref}>Або подзвоніть: {contacts.phoneText}</a>
+          <FutureLink note={futureNote} class="on-field">Показати деталі в каталозі</FutureLink>
+        </p>
+      </div>
+
+      <ul class="picker__trust trust">
+        <li>Обмін навіть встановленої деталі</li>
+        <li>Повернення протягом 60 днів</li>
+        <li>Гарантія до 6 місяців на більшість товарів</li>
+      </ul>
+    </div>
+  </div>
+</Section>

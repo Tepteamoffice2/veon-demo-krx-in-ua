@@ -1,0 +1,21 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { contacts } from "../data/site";
+---
+<Section id="kontakty" class="kontakty section">
+  <div class="container kontakty__grid">
+    <h2 class="section__title kontakty__title">Контакти</h2>
+    <a class="kontakty__phone" href={contacts.phoneHref}>{contacts.phoneText}</a>
+    <dl class="kontakty__list">
+      <div><dt>Адреса</dt><dd>{contacts.address}, {contacts.city}</dd></div>
+      <div><dt>Графік</dt><dd>{contacts.hours.map((h) => <span class="kontakty__hours">{h.days} {h.time}</span>)}</dd></div>
+      <div><dt>E-mail</dt><dd><a href={`mailto:${contacts.email}`}>{contacts.email}</a></dd></div>
+    </dl>
+    <div class="kontakty__actions">
+      <a class="btn btn--ghost" href={contacts.viber}><Icon name="viber" size={18} />Viber</a>
+      <a class="btn btn--ghost" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} />Telegram</a>
+      <a class="btn btn--ghost" href={contacts.mapHref} rel="noopener" target="_blank"><Icon name="pin" size={18} />Маршрут<span class="visually-hidden"> (відкриється карта в новій вкладці)</span></a>
+    </div>
+  </div>
+</Section>

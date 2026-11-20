@@ -1,0 +1,63 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { contacts, nav, futureNote } from "../data/site";
+---
+<header class="site-header" data-header>
+  <div class="container site-header__bar">
+    <a class="site-header__logo" href="#top" aria-label="KRX, на початок сторінки">
+      <img src="/brand/krx-logo.svg" alt="KRX" width="66" height="36" data-rec="SP-R002,SEO-R008" />
+    </a>
+
+    <nav class="site-header__nav" aria-label="Розділи сторінки">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions" data-rec="UX-R008">
+      <a class="site-header__phone" href={contacts.phoneHref}>
+        <Icon name="phone" size={18} />
+        <span>{contacts.phoneText}</span>
+      </a>
+      <a class="site-header__msg" href={contacts.viber}><Icon name="viber" size={18} /><span>Viber</span></a>
+      <a class="site-header__msg" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} /><span>Telegram</span></a>
+      <FutureLink note={futureNote} class="site-header__search">
+        <Icon name="search" size={20} /><span class="visually-hidden">Пошук</span>
+      </FutureLink>
+      <span class="site-header__lang">
+        <span class="site-header__lang-on" aria-current="true">UA</span>
+        <FutureLink note={futureNote} class="site-header__lang-off">RU</FutureLink>
+      </span>
+    </div>
+
+    <div class="site-header__mobile" data-rec="UX-R010">
+      <a class="site-header__mbtn" href={contacts.phoneHref}><Icon name="phone" size={18} /><span>Дзвінок</span></a>
+      <button class="site-header__mbtn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
+        <Icon name="menu" size={18} /><span>Меню</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Меню" hidden data-menu>
+    <div class="container menu__inner">
+      <div class="menu__top">
+        <a class="site-header__logo" href="#top" aria-label="KRX, на початок сторінки" data-menu-link>
+          <img src="/brand/krx-logo.svg" alt="KRX" width="66" height="36" />
+        </a>
+        <button class="site-header__mbtn" type="button" data-menu-close><Icon name="close" size={18} /><span>Закрити</span></button>
+      </div>
+      <ul class="menu__list">
+        {nav.map((item) => <li><a href={item.href} data-menu-link>{item.label}</a></li>)}
+      </ul>
+      <div class="menu__contacts">
+        <a class="btn btn--primary btn--block" href={contacts.phoneHref}><Icon name="phone" size={18} />Подзвонити {contacts.phoneText}</a>
+        <div class="btn-pair">
+          <a class="btn btn--ghost" href={contacts.viber}><Icon name="viber" size={18} />Viber</a>
+          <a class="btn btn--ghost" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} />Telegram</a>
+        </div>
+        <p class="menu__lang"><span aria-current="true">UA</span><FutureLink note={futureNote}>RU</FutureLink></p>
+      </div>
+    </div>
+  </div>
+</header>

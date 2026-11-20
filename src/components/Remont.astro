@@ -1,0 +1,27 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { contacts } from "../data/site";
+---
+<Section id="remont" rec="UX-R006" class="remont">
+  <div class="container remont__inner">
+    <h2 class="remont__title">Ремонт і встановлення склопідіймачів у Києві</h2>
+    <p class="remont__address">{contacts.address}</p>
+    <div class="remont__cols">
+      <div class="remont__about">
+        <p>Ремонтуємо й встановлюємо склопідіймачі в Києві. Деталь можна забрати за адресою вище, а вартість, час і місце ремонту уточнюйте телефоном.</p>
+        <table class="hours">
+          <caption class="visually-hidden">Графік роботи</caption>
+          <tbody>
+            {contacts.hours.map((h) => <tr><th scope="row">{h.days}</th><td>{h.time}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <div class="remont__actions">
+        <a class="btn btn--paper" href={contacts.phoneHref}><Icon name="phone" size={18} />Подзвонити й записатися</a>
+        <a class="btn btn--ghost-field" href={contacts.mapHref} rel="noopener" target="_blank"><Icon name="pin" size={18} />Маршрут<span class="visually-hidden"> (відкриється карта в новій вкладці)</span></a>
+        <p class="remont__city">{contacts.address}, {contacts.city}</p>
+      </div>
+    </div>
+  </div>
+</Section>

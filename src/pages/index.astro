@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Pidbir from "../components/Pidbir.astro";
+import Vuzly from "../components/Vuzly.astro";
+import Remont from "../components/Remont.astro";
+import Catalog from "../components/Catalog.astro";
+import Umovy from "../components/Umovy.astro";
+import Kontakty from "../components/Kontakty.astro";
+import Footer from "../components/Footer.astro";
+import { contacts } from "../data/site";
+import "../styles/site.css";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AutoPartsStore",
+  name: "KRX",
+  telephone: "+380671068031",
+  email: contacts.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Харківське шосе, 57А",
+    addressLocality: "Київ",
+    postalCode: "02091",
+    addressCountry: "UA",
+  },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday"], opens: "10:00", closes: "17:00" },
+  ],
+};
+---
+<Base
+  lang="uk"
+  title="Ремкомплекти та троси склопідіймачів — KRX, Київ"
+  description="Ремкомплекти й троси склопідіймачів, люків і дверей для іномарок. Ремонт склопідіймачів у Києві, відправка по Україні в день замовлення."
+>
+  <Fragment slot="head">
+    <link rel="preload" href="/fonts/geologica-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/brand/krx-logo.svg" type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+  <Header slot="header" />
+  <Pidbir />
+  <Vuzly />
+  <Remont />
+  <Catalog />
+  <Umovy />
+  <Kontakty />
+  <Footer slot="footer" />
+</Base>
+<script src="../scripts/page.ts"></script>

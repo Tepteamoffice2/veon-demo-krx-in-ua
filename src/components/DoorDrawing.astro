@@ -1,0 +1,63 @@
+---
+// One monoline drawing of the door (and an inset of the roof hatch) in a single coordinate system 0 0 800 500.
+// The hero shows the whole drawing with callout leaders; «Вузли» shows the same drawing through another viewBox
+// (Вид А, Б, В, Г), so the style is one. Colours come from CSS (currentColor), strokes stay 1.5px at any scale.
+interface Props {
+  viewBox?: string;
+  focus?: string;          // node drawn as the subject of a view
+  leaders?: boolean;       // callout leaders to the chips (hero)
+  label: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  rec?: string;
+}
+const { viewBox = "0 0 800 500", focus, leaders = false, label, class: cls, rec } = Astro.props;
+const [, , vw, vh] = viewBox.split(" ").map(Number);
+const width = Astro.props.width ?? vw;
+const height = Astro.props.height ?? vh;
+
+const shapes: Record<string, string> = {
+  reg: `<rect x="246" y="212" width="8" height="184" rx="2"/><rect x="436" y="212" width="8" height="184" rx="2"/>
+    <circle cx="250" cy="212" r="9"/><circle cx="250" cy="396" r="9"/><circle cx="440" cy="212" r="9"/><circle cx="440" cy="396" r="9"/>
+    <rect x="236" y="228" width="28" height="16" rx="2"/><rect x="426" y="228" width="28" height="16" rx="2"/>
+    <circle cx="345" cy="318" r="20"/><circle cx="345" cy="318" r="7"/>`,
+  cable: `<path d="M259 214V394M431 214V394M259 220 431 388M259 388 330 330M360 306 431 220"/>`,
+  handle: `<rect x="112" y="246" width="58" height="14" rx="7"/><rect x="112" y="300" width="46" height="14" rx="3"/><path d="M135 300v14"/>`,
+  door: `<rect x="516" y="252" width="30" height="52" rx="3"/><circle cx="531" cy="270" r="6"/><path d="M170 253c110 9 250 37 346 27"/>`,
+  clips: `<circle cx="110" cy="406" r="4.5"/><circle cx="220" cy="406" r="4.5"/><circle cx="330" cy="406" r="4.5"/><circle cx="460" cy="406" r="4.5"/>
+    <circle cx="546" cy="230" r="4.5"/><circle cx="546" cy="356" r="4.5"/><circle cx="86" cy="262" r="4.5"/><circle cx="86" cy="372" r="4.5"/>`,
+  roof: `<rect x="642" y="120" width="110" height="70" rx="6"/><path d="M630 116v110M764 116v110M630 226h58M706 226h58"/><circle cx="697" cy="226" r="9"/>`,
+};
+const leaderPaths: Record<string, string> = {
+  reg: "M236 236 133 116V56",
+  cable: "M431 214 400 172V56",
+  roof: "M697 120 667 86V56",
+  handle: "M156 300 133 334V444",
+  clips: "M330 410l22 34",
+  door: "M546 296 667 432v12",
+};
+const order = ["reg", "cable", "roof", "handle", "clips", "door"];
+---
+<svg class:list={["diagram", cls, { "diagram--view": !!focus }]} viewBox={viewBox} width={width} height={height}
+  role="img" aria-label={label} data-rec={rec} preserveAspectRatio="xMidYMid meet" fill="none"
+  stroke-linecap="round" stroke-linejoin="round">
+  <g class="diagram__base">
+    <path d="M70 420V200L190 90h370v330z" />
+    <path d="M70 200h490" />
+    <path class="diagram__glass" d="M104 192 196 106h348v86z" />
+    <path class="diagram__dash" d="M150 200v36h390v-36M86 214v192h460V214" />
+    <path d="M92 318h150" />
+    <rect x="612" y="96" width="170" height="150" rx="18" />
+    <text x="612" y="276" class="diagram__caption">люк, вид зверху</text>
+  </g>
+  {order.map((id) => (
+    <g class:list={["node", { "is-focus": focus === id }]} data-node={id}>
+      {leaders && <path class="leader" d={leaderPaths[id]} />}
+      <g class="node__base" set:html={shapes[id]} />
+      <g class="node__hl" set:html={shapes[id]} />
+      {leaders && <path class="leader leader--hl" d={leaderPaths[id]} />}
+      {leaders && <g class="node__hit" set:html={shapes[id]} />}
+    </g>
+  ))}
+</svg>

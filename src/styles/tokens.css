@@ -1,0 +1,104 @@
+/* Hallmark · shape: custom · genre: modern-minimal · theme: custom · job: buy (+visit) · idea: "Під лінією скла: сторінка побудована як двері — світле скло зверху, синя панель знизу зі схемою механізму, якою відвідувач показує, що зламалося" · vibe: "точна схема дверей, мова деталі" · paper: #F1F4F7 · field: #092E4E · accent: #AD150E (on field #FF7A6B) · display: Geologica · body: IBM Plex Sans · hero: скло і панель дверей — H1 і дзвінок на світлому, підбір «марка → що зламалося» на схемі в синій панелі; лінія скла піднімається під кутом штриха логотипа · nav: logo · 5 anchors · full phone as the action · footer: compact on paper-2, one FutureLink row · imagery: the product (own monoline door diagram) · signature: лінія скла, що піднімається під кутом штриха K, і схема дверей як інтерфейс підбору · axes: light/geometric-sans/chromatic-red · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: imagery, no client photos (403 to automated requests), so the page carries the client's real subject as an own monoline diagram instead of stock */
+/* Hallmark · waive 79 · the space under the glass header is the blue door panel of #pidbir with the picker, visible from y 576 at 1440 · by the concept the first screen is glass plus panel, so the fold holds the action, not air */
+/* Hallmark · answered F4 · the field panel and the phone call bar need their own filled call: paper on the blue panel, red only on light, one per screen */
+/* Client design tokens from design/concept.md (veon-concept). One token system; components use only these names. */
+@font-face { font-family: "Geologica"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/geologica-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Geologica"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/geologica-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/ibm-plex-sans-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/ibm-plex-sans-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  /* Colour roles (concept.md § Дизайн-система) */
+  --color-bg: #F1F4F7;            /* paper, «скло» */
+  --color-paper-2: #E3E9EF;       /* band change: catalogue, footer */
+  --color-text: #0D1B2A;          /* ink */
+  --color-muted: #4A5968;         /* secondary text, field edges */
+  --color-rule: #C5CFD9;          /* decorative hairlines only */
+  --color-accent: #AD150E;        /* signal: primary call, focus on light */
+  --color-on-accent: #FFF8F7;
+  --color-accent-ink: #FFF8F7;
+  --color-field: #092E4E;         /* «панель дверей» */
+  --color-on-field: #EDF2F7;
+  --color-on-field-muted: #A3B6C9;
+  --color-line-on-field: #7D93A9; /* diagram lines, control edges on field */
+  --color-accent-on-field: #FF7A6B;
+  /* State tones derived from the roles (hover: about 6% L darker or lighter) */
+  --color-accent-hover: color-mix(in oklch, #AD150E, #0D1B2A 14%);
+  --color-paper-hover: #E3E9EF;
+  --color-field-hover: color-mix(in oklch, #092E4E, #EDF2F7 10%);
+  --color-accent-on-field-hover: color-mix(in oklch, #FF7A6B, #EDF2F7 18%);
+  --color-ink-hover: color-mix(in oklch, #0D1B2A, #F1F4F7 8%);
+  --color-scrim: color-mix(in oklch, #0D1B2A 40%, transparent);
+
+  /* Type: Geologica 700 display, IBM Plex Sans 400/600 text; scale 1.25 from 16px */
+  --font-display: "Geologica", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --text-xs: 0.8125rem;   /* 13 */
+  --text-sm: 0.9375rem;   /* 15 */
+  --text-md: 1.0625rem;   /* 17 body */
+  --text-lead: 1.25rem;   /* 20 */
+  --text-h3: 1.5625rem;   /* 25 */
+  --text-h2-s: 1.9375rem; /* 31 */
+  --text-h2-m: 2.4375rem; /* 39 */
+  --text-h2: clamp(1.9375rem, 1.2rem + 2.2vw, 3.0625rem); /* 31 to 49 */
+  --text-display: clamp(2.25rem, 1rem + 3.4vw, 4.25rem); /* 36 to 68 */
+  --text-figure: clamp(2.4375rem, 1.4rem + 3vw, 4.25rem);
+
+  /* Space: 4/8 rhythm */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 160px;
+  --section-a: clamp(64px, 4rem + 4vw, 128px);
+  --section-b: clamp(80px, 4rem + 6vw, 160px);
+
+  /* Shape, size, layers */
+  --radius: 2px;
+  --control-h: 48px;
+  --hairline: 1px;
+  --edge: 1.5px;
+  --header-h: 56px;
+  --rise: 40px;            /* the glass line, mobile ≈ 6° */
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-nav: 300;
+  --z-modal: 400;
+  --z-tooltip: 600;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --ease-in: cubic-bezier(.5, 0, .75, 0);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-node: 240ms;
+  --dur-long: 450ms;
+  --dur: 450ms;
+  --dur-rise: 700ms;
+  --rise-shift: 24px;
+
+  /* Layout */
+  --space: clamp(1rem, 0.6rem + 1.6vw, 1.5rem);
+  --gap: var(--space-md);
+  --container: 1360px;
+}
+@media (min-width: 40rem) {
+  :root { --gap: var(--space-lg); --rise: 64px; }
+}
+@media (min-width: 60rem) {
+  :root { --header-h: 80px; --rise: 150px; }
+}
+@media (max-width: 39.99rem) {
+  :root { --dur-rise: 450ms; --rise-shift: 12px; }
+}

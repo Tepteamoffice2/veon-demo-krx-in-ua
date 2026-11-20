@@ -1,0 +1,33 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { catalog, contacts, futureNote } from "../data/site";
+---
+<Section id="catalog" rec="UX-R007" class="catalog section">
+  <div class="container">
+    <div class="catalog__head">
+      <h2 class="section__title">12 розділів каталогу</h2>
+      <div class="catalog__ask">
+        <p>Не знайшли? Напишіть марку, модель і рік у Viber чи Telegram.</p>
+        <div class="btn-pair">
+          <a class="btn btn--ghost" href={contacts.viber}><Icon name="viber" size={18} />Viber</a>
+          <a class="btn btn--ghost" href={contacts.telegram} rel="noopener"><Icon name="telegram" size={18} />Telegram</a>
+        </div>
+      </div>
+    </div>
+    <ul class="index">
+      {catalog.map((c, i) => (
+        <li class="index__row" data-reveal style={`--reveal-delay:${Math.min(i, 10) * 40}ms`}>
+          <FutureLink note={futureNote} class="index__link">
+            <span class="index__name">{c.name}</span>
+            {c.subs.length > 0 && <span class="index__subs">{c.subs.join(", ")}</span>}
+          </FutureLink>
+        </li>
+      ))}
+    </ul>
+    <p class="catalog__new">
+      <FutureLink note={futureNote} class="index__link index__link--new"><span class="index__name">Нові товари</span></FutureLink>
+    </p>
+  </div>
+</Section>
